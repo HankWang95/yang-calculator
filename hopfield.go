@@ -9,20 +9,13 @@ import (
 )
 
 func Help() {
-	fmt.Println("请依次输入变量：P H T ZTD")
+	fmt.Println("请依次输入变量：Ps ZTD")
 }
 
-func PWV(Two_res, ZWD_res float64) {
+func PWV(ZWD_res float64) {
 	var PWV_res float64
-	PWV_res = Two_res * ZWD_res
+	PWV_res = 0.15 * ZWD_res
 	fmt.Println("PWV :", PWV_res)
-}
-
-func Two(T float64) float64 {
-	var Two_res float64
-	Two_res = 1000000 / (461000 * ((378000 / T) + 16.48))
-	fmt.Println("Two :", Two_res)
-	return Two_res
 }
 
 func ZWD(ZTD, ZHD_res float64) float64 {
@@ -32,16 +25,15 @@ func ZWD(ZTD, ZHD_res float64) float64 {
 	return ZWD_res
 }
 
-func ZHD(P, H float64) float64 {
+func ZHD(Ps float64) float64 {
 	var ZHD_res float64
-	ZHD_res = 22.7 * P / (0.775 - 0.00028*H)
+	ZHD_res = 2.2768*(10000+Ps)*0.1/1 - (0.0026*-0.024 - 0.00028*0.181418)
 	fmt.Println("ZHD: ", ZHD_res)
 	return ZHD_res
 }
 
-func Handler(P, H, T, ZTD float64) {
-
-	PWV(Two(T), ZWD(ZTD, ZHD(P, H)))
+func Handler(Ps, ZTD float64) {
+	PWV(ZWD(ZTD, ZHD(Ps)))
 }
 
 func main() {
@@ -51,7 +43,7 @@ LABEL:
 	r := bufio.NewReader(os.Stdin)
 
 	for {
-		fmt.Print("依次输入：P H T ZTD > ")
+		fmt.Print("依次输入：Ps ZTD > ")
 		b, _, _ := r.ReadLine()
 		line := string(b)
 
@@ -60,16 +52,14 @@ LABEL:
 		// var (
 		// 	P, H, T, ZTD float32
 		// )
-		if len(tokens) == 4 {
-			P, err := strconv.ParseFloat(tokens[0], 10)
-			H, err := strconv.ParseFloat(tokens[1], 10)
-			T, err := strconv.ParseFloat(tokens[2], 10)
-			ZTD, err := strconv.ParseFloat(tokens[3], 10)
+		if len(tokens) == 2 {
+			Ps, err := strconv.ParseFloat(tokens[0], 10)
+			ZTD, err := strconv.ParseFloat(tokens[1], 10)
 			if err != nil {
 				goto LABEL
 			}
 
-			Handler(P, H, T, ZTD)
+			Handler(Ps, ZTD)
 			goto LABEL
 		}
 
