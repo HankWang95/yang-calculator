@@ -14,7 +14,7 @@ func Help() {
 
 func Hd(Ts float64) float64 {
 	var hd_res float64
-	hd_res = 40136 + 148.72*(Ts-273.16)
+	hd_res = 40136 + (148.72 * (Ts - 273.16))
 	return hd_res
 }
 func P(Ps float64) float64 {

@@ -6,6 +6,8 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"math"
 )
 
 func Help() {
@@ -27,7 +29,7 @@ func ZWD(ZTD, ZHD_res float64) float64 {
 
 func ZHD(Ps float64) float64 {
 	var ZHD_res float64
-	ZHD_res = 2.2768*(10000+Ps)*0.1/1 - (0.0026*-0.024 - 0.00028*0.181418)
+	ZHD_res = (2.2768 * (10000 + Ps) * 0.1) / (1 - ((0.00266 * -0.024) - (0.00028 * 0.181418)))
 	fmt.Println("ZHD: ", ZHD_res)
 	return ZHD_res
 }
@@ -49,15 +51,13 @@ LABEL:
 
 		tokens := strings.Split(line, " ")
 
-		// var (
-		// 	P, H, T, ZTD float32
-		// )
 		if len(tokens) == 2 {
 			Ps, err := strconv.ParseFloat(tokens[0], 10)
 			ZTD, err := strconv.ParseFloat(tokens[1], 10)
 			if err != nil {
 				goto LABEL
 			}
+			print(Ps, ZTD)
 
 			Handler(Ps, ZTD)
 			goto LABEL
