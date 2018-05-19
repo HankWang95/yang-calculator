@@ -6,8 +6,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-
-	"math"
 )
 
 func Help() {
@@ -29,7 +27,7 @@ func ZWD(ZTD, ZHD_res float64) float64 {
 
 func ZHD(Ps float64) float64 {
 	var ZHD_res float64
-	ZHD_res = (2.2768 * (10000 + Ps) * 0.1) / (1 - ((0.00266 * -0.024) - (0.00028 * 0.181418)))
+	ZHD_res = (2.2768 * Ps * 0.1) / (1 - ((0.00266 * -0.024) - (0.00028 * 0.181418)))
 	fmt.Println("ZHD: ", ZHD_res)
 	return ZHD_res
 }

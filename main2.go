@@ -19,7 +19,7 @@ func Hd(Ts float64) float64 {
 }
 func P(Ps float64) float64 {
 	var p_res float64
-	p_res = (10000 + Ps) * 0.1
+	p_res = Ps * 0.1
 	return p_res
 }
 
@@ -32,7 +32,7 @@ func ZHD(Ts, hd_res, p_res float64) float64 {
 
 func ZWD(ZTD, ZHD_res float64) float64 {
 	var ZWD_res float64
-	ZWD_res = ZTD - ZHD_res
+	ZWD_res = (ZTD - ZHD_res) * 1000
 	fmt.Println("ZWD:", ZWD_res)
 	return ZWD_res
 }
